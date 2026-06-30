@@ -39,7 +39,8 @@ def main():
             )
 
             print(message)
-
+            print("Sende Telegram...")
+            
             send(message)
 
         except Exception as e:
