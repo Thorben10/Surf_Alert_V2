@@ -3,37 +3,35 @@ import requests
 
 def load_forecast(lat, lon):
 
-    url = (
-        "https://marine-api.open-meteo.com/v1/marine"
-    )
+    url = "https://marine-api.open-meteo.com/v1/marine"
 
     params = {
 
         "latitude": lat,
         "longitude": lon,
 
-        "hourly":
-        ",".join([
+        "hourly": ",".join([
 
             "wave_height",
             "wave_direction",
-            "wave_period",
-
-            "wind_wave_height",
-            "wind_wave_period",
-
-            "wind_speed",
-            "wind_direction"
+            "wave_period"
 
         ]),
 
         "forecast_days": 7,
+
         "timezone": "Europe/Berlin"
 
     }
 
-    r = requests.get(url, params=params, timeout=45)
+    response = requests.get(
+        url,
+        params=params,
+        timeout=30
+    )
 
-    r.raise_for_status()
+    print(response.url)
 
-    return r.json()
+    response.raise_for_status()
+
+    return response.json()
